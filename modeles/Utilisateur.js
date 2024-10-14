@@ -1,42 +1,59 @@
 import { DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
-
 export default function (bdd) {
-    // Définition de la table
-
-    // Méthode de création de compte
-    Utilisateur.creerCompte = async function (pseudo, motDePasse) {
-        try {
-            const nouvelUtilisateur = await Utilisateur.create({
-                pseudo_utilisateur: pseudo,
-                mdp_utilisateur: motDePasse,
-            });
-            return nouvelUtilisateur;
-        } catch (error) {
-            throw new Error("Erreur lors de la création du compte : " + error.message);
+    const Utilisateur = bdd.define(
+        "Utilisateurs",
+        {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+            pseudo: {
+                type: DataTypes.STRING(255),
+                allowNull: false,
+                unique: true,
+            },
+            motDePasse: {
+                type: DataTypes.STRING(255),
+                allowNull: false,
+            },
+        },
+        {
+            tableName: "Utilisateurs",
         }
+    );
+    Utilisateur.inscription = async function (req,pseudo, motDePasse) {
+        bcrypt.hash(motDePasse, 12).then((motDePasseHash) => {
+            req.Utilisateur.create({
+                pseudo: pseudo,
+                mdp: motDePasseHash,
+            })
+                .then((utilisateur) => {
+                    console.log("c'est bon");
+                })
+                .catch((erreur) => {
+                    console.error(erreur);
+                });
+        });
     };
-
-    // Méthode de connexion
     Utilisateur.connexion = async function (pseudo, motDePasse) {
-        try {
-            const utilisateur = await Utilisateur.findOne({
-                where: { pseudo_utilisateur: pseudo },
-            });
-            if (!utilisateur) {
-                throw new Error("Utilisateur non trouvé");
-            }
-
-            const mdpValide = await bcrypt.compare(motDePasse, utilisateur.mdp_utilisateur);
-            if (!mdpValide) {
-                throw new Error("Mot de passe incorrect");
-            }
-
-            return utilisateur;
-        } catch (error) {
-            throw new Error("Erreur lors de la connexion : " + error.message);
-        }
+        console.log("test");
     };
-
+    Utilisateur.pseudoDisponible = async function (req, pseudo) {
+        req.Utilisateur.findOne({
+            where: {
+                pseudo: pseudo,
+            },
+        }).then((utilisateur) => {
+            if (utilisateur) {
+                console.log("il y a un utilisateur");
+                return true;
+            } else {
+                console.log("il y a pas d'utilisateur");
+                return false;
+            }
+        });
+    };
     return Utilisateur;
 }

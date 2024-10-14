@@ -1,0 +1,14 @@
+<%- include('./parties/tete.ejs') %>
+<h1 id="titre"><%= mode %></h1>
+<form id="form">
+    <div>
+        <label for="pseudo">Pseudo :</label>
+        <input type="text" id="pseudo" required>
+    </div>
+    <div>
+        <label for="motDePasse">Mot de passe :</label>
+        <input type="password" id="motDePasse" required>
+    </div>
+    <button type="submit" id="boutonEnvoi" class="lien"><%= mode %></button>
+</form>
+<%- include('./parties/pied.ejs') %>
