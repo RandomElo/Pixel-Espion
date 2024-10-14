@@ -12,7 +12,18 @@ document.querySelector("#pseudo").addEventListener("input", async (e) => {
         });
         if (requete.ok) {
             const reponse = await requete.json();
-            console.log(reponse);
+            const boutonEnvoi = document.querySelector("#boutonEnvoi");
+            if (reponse.disponible) {
+                document.querySelector("#messageErreur").textContent = "";
+                boutonEnvoi.disabled = true;
+                boutonEnvoi.style.opacity = "1";
+                boutonEnvoi.style.cursor = "pointer";
+            } else {
+                document.querySelector("#messageErreur").textContent = "Pseudo indisponible";
+                boutonEnvoi.disabled = true;
+                boutonEnvoi.style.opacity = "0.6";
+                boutonEnvoi.style.cursor = "default";
+            }
         } else {
             alert("Un problème est survenue lors de l'envoi de la requete");
         }
@@ -24,7 +35,6 @@ document.querySelector("#form").addEventListener("submit", async (e) => {
         pseudo: e.target[0].value,
         mdp: e.target[1].value,
     };
-    console.log(donnees);
 
     const requete = await fetch("/utilisateur/inscription", {
         method: "POST",
@@ -35,7 +45,12 @@ document.querySelector("#form").addEventListener("submit", async (e) => {
     });
     if (requete.ok) {
         const reponse = await requete.json();
-        console.log(reponse);
+        if (reponse.connecte) {
+            // redirection
+        } else {
+            alert("Une erreur est survenue lors de la création du compte");
+            console.error(reponse.erreur);
+        }
     } else {
         alert("Un problème est survenue lors de l'envoi de la requete");
     }
