@@ -14,7 +14,7 @@ document.querySelector("#form").addEventListener("submit", async (e) => {
     if (requete.ok) {
         const reponse = await requete.json();
         if (reponse.connecte) {
-            window.location.href = "gestion"
+            window.location.href = "gestion";
         } else {
             alert("Erreur lors de l'envoie de la requete de connexion");
             console.error(reponse.erreur);

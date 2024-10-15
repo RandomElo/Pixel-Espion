@@ -17,7 +17,7 @@ export default function (bdd) {
                 allowNull: false,
                 unique: true,
             },
-            nomLien: {
+            lien: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
                 unique: true,
@@ -27,9 +27,18 @@ export default function (bdd) {
             tableName: "Images",
         }
     );
-    Image.enregistrement = async function (req, res) {
-        
-    }
+    Image.verificationDispoLien = async function (req, res) {
+        req.Image.findOne({
+            where: { lien: req.body.lien },
+        }).then((image) => {
+            if (image) {
+                return res.json({ disponible: false });
+            } else {
+                return res.json({ disponible: true });
+            }
+        });
+    };
+    Image.enregistrement = async function (req, res) {};
     // Ajouter les fonctions
     return Image;
 }

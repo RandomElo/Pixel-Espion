@@ -1,3 +1,10 @@
+function afficherBouton() {
+    const boutonEnvoi = document.querySelector("#boutonEnvoi");
+    document.querySelector("#messageErreur").textContent = "";
+    boutonEnvoi.disabled = false;
+    boutonEnvoi.style.opacity = "1";
+    boutonEnvoi.style.cursor = "pointer";
+}
 document.querySelector("#pseudo").addEventListener("input", async (e) => {
     if (e.target.value) {
         const donnee = {
@@ -12,12 +19,8 @@ document.querySelector("#pseudo").addEventListener("input", async (e) => {
         });
         if (requete.ok) {
             const reponse = await requete.json();
-            const boutonEnvoi = document.querySelector("#boutonEnvoi");
             if (reponse.disponible) {
-                document.querySelector("#messageErreur").textContent = "";
-                boutonEnvoi.disabled = false;
-                boutonEnvoi.style.opacity = "1";
-                boutonEnvoi.style.cursor = "pointer";
+                afficherBouton();
             } else {
                 document.querySelector("#messageErreur").textContent = "Pseudo indisponible";
                 boutonEnvoi.disabled = true;
@@ -27,11 +30,12 @@ document.querySelector("#pseudo").addEventListener("input", async (e) => {
         } else {
             alert("Un problème est survenue lors de l'envoi de la requete");
         }
+    } else {
+        afficherBouton();
     }
 });
 document.querySelector("form").addEventListener("submit", async (e) => {
     e.preventDefault();
-    ("le bouton a a étais cliquer")
     const donnees = {
         pseudo: e.target[0].value,
         mdp: e.target[1].value,

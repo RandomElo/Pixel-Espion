@@ -7,11 +7,14 @@ import bdd from "./bdd/bdd.js";
 
 // Middlewares
 import { accesibiliteBDD } from "./middlewares/accessibliteBDD.js";
+import { verificationCookie } from "./middlewares/verificationCookie.js";
+import { controleAcces } from "./middlewares/controleAcces.js";
 
 // Routes
 import routeurPages from "./routes/pagesRoutes.js";
 import routeurUtilisateurs from "./routes/utilisateursRoutes.js";
 import routeurImages from "./routes/imagesRoutes.js";
+
 dotenv.config();
 
 const port = 8100;
@@ -27,17 +30,20 @@ app.use(
     })
 );
 app.use(express.json());
+
+// Gestion des chemins d'accès
 app.use("/", express.static(path.join(process.cwd(), "public")));
 app.use("/public", express.static(path.join(process.cwd(), "public/elements")));
 app.use("/data", express.static(path.join(process.cwd(), "public/data")));
 
-app.set("view engine", "ejs"); //Permet de définir le moteur de vue
+app.set("view engine", "ejs");
 app.use(cookieParser());
 app.use(accesibiliteBDD(bdd));
+app.use(verificationCookie);
 
 // Gestion des routes
 app.use("/", routeurPages);
 app.use("/utilisateur", routeurUtilisateurs);
-app.use("/image", routeurImages);
+app.use("/image",controleAcces("connecte") ,routeurImages);
 
 app.listen(port, () => console.log("Serveur démarré => port " + port));
