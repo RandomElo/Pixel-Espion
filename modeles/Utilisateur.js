@@ -65,11 +65,10 @@ export default function (bdd) {
             return res.json({ connecte: true, erreur: "Pseudo ou mot de passe incorrect" });
         }
         if (bcrypt.compare(req.body.mdp, utilisateur.motDePasse)) {
-            // Mot de passe correct
+            return await req.Utilisateur.generationToken(res, utilisateur.id);
         } else {
             return res.json({ connecte: true, erreur: "Pseudo ou mot de passe incorrect" });
         }
-        console.log(test);
     };
     Utilisateur.generationToken = async function (res, idUtilisateur) {
         const tokenJWT = jwt.sign({ id: idUtilisateur }, process.env.CHAINE_JWT, {

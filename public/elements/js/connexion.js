@@ -12,9 +12,9 @@ document.querySelector("#form").addEventListener("submit", async (e) => {
         body: JSON.stringify(donnees),
     });
     if (requete.ok) {
-        const reponse = await reponse.json();
+        const reponse = await requete.json();
         if (reponse.connecte) {
-            // redirection
+            window.location.href = "gestion"
         } else {
             alert("Erreur lors de l'envoie de la requete de connexion");
             console.error(reponse.erreur);

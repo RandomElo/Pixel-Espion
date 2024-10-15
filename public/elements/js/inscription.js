@@ -46,7 +46,7 @@ document.querySelector("#form").addEventListener("submit", async (e) => {
     if (requete.ok) {
         const reponse = await requete.json();
         if (reponse.connecte) {
-            // redirection
+            window.location.href = "gestion";
         } else {
             alert("Une erreur est survenue lors de la création du compte");
             console.error(reponse.erreur);

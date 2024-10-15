@@ -10,4 +10,11 @@ routeurPages.get("/inscription", (req, res) => {
 routeurPages.get("/connexion", (req, res) => {
     res.render("pageIdentification.ejs", { titre: "Connexion", css: "pageIdentification", script: "connexion", mode: "Connexion" });
 });
+routeurPages.get("/gestion", (req, res) => {
+    if (req.cookies.utilisateur) {
+        res.render("gestion.ejs", { titre: "Gestion", css: "gestion", script: "js" });
+    } else {
+        res.redirect("/connexion")
+    }
+});
 export default routeurPages;
