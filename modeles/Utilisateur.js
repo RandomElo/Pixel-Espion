@@ -40,7 +40,6 @@ export default function (bdd) {
         });
     };
     Utilisateur.inscription = async function (req, res) {
-        console.log(req.body.pseudo);
         try {
             req.Utilisateur.findOne({ where: { pseudo: req.body.pseudo } }).then((utilisateur) => {
                 if (utilisateur) {

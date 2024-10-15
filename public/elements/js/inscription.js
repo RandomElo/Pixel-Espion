@@ -15,7 +15,7 @@ document.querySelector("#pseudo").addEventListener("input", async (e) => {
             const boutonEnvoi = document.querySelector("#boutonEnvoi");
             if (reponse.disponible) {
                 document.querySelector("#messageErreur").textContent = "";
-                boutonEnvoi.disabled = true;
+                boutonEnvoi.disabled = false;
                 boutonEnvoi.style.opacity = "1";
                 boutonEnvoi.style.cursor = "pointer";
             } else {
@@ -29,8 +29,9 @@ document.querySelector("#pseudo").addEventListener("input", async (e) => {
         }
     }
 });
-document.querySelector("#form").addEventListener("submit", async (e) => {
+document.querySelector("form").addEventListener("submit", async (e) => {
     e.preventDefault();
+    ("le bouton a a étais cliquer")
     const donnees = {
         pseudo: e.target[0].value,
         mdp: e.target[1].value,

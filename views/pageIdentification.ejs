@@ -3,13 +3,13 @@
 <form id="form">
     <div>
         <label for="pseudo">Pseudo :</label>
-        <input type="text" id="pseudo" required>
+        <input type="text" id="pseudo" required />
     </div>
     <div>
         <label for="motDePasse">Mot de passe :</label>
-        <input type="password" id="motDePasse" required>
+        <input type="password" id="motDePasse" required />
     </div>
     <p id="messageErreur"></p>
-    <button type="submit" id="boutonEnvoi" class="lien" ><%= mode %></button>
+    <button type="submit" id="boutonEnvoi" class="lien"><%= mode %></button>
 </form>
 <%- include('./parties/pied.ejs') %>
