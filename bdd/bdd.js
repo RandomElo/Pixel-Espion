@@ -19,11 +19,11 @@ const bdd = {
 };
 
 bdd.Utilisateur.hasMany(bdd.Image, {
-    foreignKey: "id_utilisateur", // Champ de la table Image
+    foreignKey: "idUtilisateur", // Champ de la table Image
     sourceKey: "id", // Champ de la table Utilisateur
 });
 bdd.Image.belongsTo(bdd.Utilisateur, {
-    foreignKey: "id_utilisateur", // Champ de la table Image
+    foreignKey: "idUtilisateur", // Champ de la table Image
     targetKey: "id", // Champ de la table Utilisateur
 });
 

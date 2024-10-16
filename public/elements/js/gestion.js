@@ -10,37 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
             <input name="nom" id="nom" type="text" required />
         </div>
         <div>
-            <label for="lien">Lien de l'image :</label>
-            <input name="lien" id="lien" type="text" required />
-        </div>
-        <div>
             <label for="image">Image :</label>
             <input name="image" id="image" type="file" accept="image/png, image/jpeg, image/jpg" required />
         </div>
         <div id="divErreur"></div>
         <button id="envoiBouton" class="lien" type="submit">Publier</button>
     </form>`;
-        document.querySelector("#lien").addEventListener("input", async (e) => {
-            if (e.target.value) {
-                console.log(e.target.value);
-                const donnee = {
-                    lien: e.target.value,
-                };
-                const requete = await fetch("/image/verfication-lien", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(donnee),
-                });
-                if (requete.ok) {
-                    const reponse = await requete.json();
-                    console.log(reponse);
-                } else {
-                    alert("Problème lors de l'envoi de la requete");
-                }
-            }
-        });
         document.querySelector("form").addEventListener("submit", async (e) => {
             e.preventDefault();
             const formData = new FormData(document.querySelector("form"));
@@ -52,8 +27,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (requete.ok) {
                 const reponse = await requete.json();
-                console.log(reponse);
+                if (reponse.enregistrer) {
+                    window.location.reload(true);
+                } else {
+                    alert("Une erreur est survenue lors de l'enregistrement de l'image");
+                }
+            } else {
+                alert("La requêtre d'enregistrement à échouée");
             }
         });
     });
 });
+if (document.querySelector("table")) {
+    document.querySelectorAll(".boutonDetails").forEach((bouton) => {
+        bouton.addEventListener("click", (e) => {
+            console.log(e.target.dataset.id);
+        });
+    });
+}

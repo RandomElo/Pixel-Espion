@@ -1,4 +1,36 @@
 <%- include('./parties/tete.ejs') %>
 <h1 id="titre">Page de gestion</h1>
 <div id="divResultat"></div>
+<div id="divImages">
+    <% if (imagesUtilisateur) { %>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Image</th>
+                <th>Détails</th>
+                <th>Supression</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < imagesUtilisateur.length; i++) {%>
+            <tr data-id="<%= imagesUtilisateur[i].nomFichier %>">
+                <td><%= imagesUtilisateur[i].nomImage %></td>
+                <!-- <td><img src="/data/<%= imagesUtilisateur[i].nomFichier %>" alt="Nom image : <%= imagesUtilisateur[i].nomImage %>" /></td> -->
+                <td>
+                    <a>Afficher l'image</a>
+                </td>
+                <td>
+                    <a class="boutonDetails">Afficher les détails</a>
+                </td>
+
+                <td></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <% } else {%>
+        <p>page</p>
+    <% } %>
+</div>
 <%- include('./parties/pied.ejs') %>

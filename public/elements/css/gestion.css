@@ -22,3 +22,20 @@ input {
     padding: 1px;
 }
 /* Fin de la gestion du form */
+/* Gestion du tableau */
+table {
+    width: 60%;
+    margin: 0 auto;
+}
+table img {
+    width: 50px;
+}
+
+table td {
+    text-align: center;
+    padding: 5px;
+}
+td a {
+    text-decoration: underline;
+    cursor: pointer;
+}

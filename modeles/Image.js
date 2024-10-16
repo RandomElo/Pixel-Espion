@@ -12,12 +12,11 @@ export default function (bdd) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            nomFichier: {
+            nomImage: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
-                unique: true,
             },
-            lien: {
+            nomFichier: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
                 unique: true,
@@ -27,18 +26,20 @@ export default function (bdd) {
             tableName: "Images",
         }
     );
-    Image.verificationDispoLien = async function (req, res) {
-        req.Image.findOne({
-            where: { lien: req.body.lien },
-        }).then((image) => {
-            if (image) {
-                return res.json({ disponible: false });
-            } else {
-                return res.json({ disponible: true });
-            }
-        });
+
+    Image.enregistrement = async function (req, res) {
+        console.log("id utilisateur "+req.idUtilisateur)
+        try {
+            req.Image.create({
+                idUtilisateur: req.idUtilisateur,
+                nomImage: req.body.nom,
+                nomFichier: req.file.filename,
+            });
+            return res.json({ enregistrer: true });
+        } catch (erreur) {
+            return res.json({ enregistrer: false, erreur });
+        }
     };
-    Image.enregistrement = async function (req, res) {};
     // Ajouter les fonctions
     return Image;
 }
