@@ -7,8 +7,7 @@ const storage = multer.diskStorage({
     },
     // Le nom du fichier enregistré sur le serveur
     filename: (req, file, callback) => {
-        // Générer un nom de fichier unique en utilisant la date actuelle et le nom d'origine du fichier
-        req.fileNameSave = `${Date.now()}${Math.floor(Math.random() * 100000)}`;
+        req.fileNameSave = `${Date.now()}${Math.floor(Math.random() * 100000)}.${file.originalname.split(".")[1]}`;
         callback(null, req.fileNameSave);
     },
 });

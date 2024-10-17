@@ -28,6 +28,7 @@ table {
     margin: 0 auto;
 }
 table img {
+    height: 50px;
     width: 50px;
 }
 

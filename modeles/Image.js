@@ -27,8 +27,7 @@ export default function (bdd) {
         }
     );
 
-    Image.enregistrement = async function (req, res) {
-        console.log("id utilisateur "+req.idUtilisateur)
+    Image.enregistrement = function (req, res) {
         try {
             req.Image.create({
                 idUtilisateur: req.idUtilisateur,

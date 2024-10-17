@@ -9,6 +9,7 @@ import bdd from "./bdd/bdd.js";
 import { accesibiliteBDD } from "./middlewares/accessibliteBDD.js";
 import { verificationCookie } from "./middlewares/verificationCookie.js";
 import { controleAcces } from "./middlewares/controleAcces.js";
+import { suiviAcces } from "./middlewares/suiviRequeteImage.js";
 
 // Routes
 import routeurPages from "./routes/pagesRoutes.js";
@@ -31,19 +32,20 @@ app.use(
 );
 app.use(express.json());
 
-// Gestion des chemins d'accès
-app.use("/", express.static(path.join(process.cwd(), "public")));
-app.use("/public", express.static(path.join(process.cwd(), "public/elements")));
-app.use("/data", express.static(path.join(process.cwd(), "public/data")));
-
 app.set("view engine", "ejs");
 app.use(cookieParser());
 app.use(accesibiliteBDD(bdd));
 app.use(verificationCookie);
 
+
+// Gestion des chemins d'accès
+app.use("/", express.static(path.join(process.cwd(), "public")));
+app.use("/public", express.static(path.join(process.cwd(), "public/elements")));
+app.use("/img", suiviAcces(), express.static(path.join(process.cwd(), "public/data")));
+
 // Gestion des routes
 app.use("/", routeurPages);
 app.use("/utilisateur", routeurUtilisateurs);
-app.use("/image",controleAcces("connecte") ,routeurImages);
+app.use("/image", controleAcces("connecte"), routeurImages);
 
 app.listen(port, () => console.log("Serveur démarré => port " + port));

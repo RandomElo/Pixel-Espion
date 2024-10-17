@@ -1,8 +1,9 @@
 <%- include('./parties/tete.ejs') %>
+<link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet" />
 <h1 id="titre">Page de gestion</h1>
 <div id="divResultat"></div>
 <div id="divImages">
-    <% if (imagesUtilisateur) { %>
+    <% if (imagesUtilisateur != "") { %>
     <table>
         <thead>
             <tr>
@@ -18,19 +19,23 @@
                 <td><%= imagesUtilisateur[i].nomImage %></td>
                 <!-- <td><img src="/data/<%= imagesUtilisateur[i].nomFichier %>" alt="Nom image : <%= imagesUtilisateur[i].nomImage %>" /></td> -->
                 <td>
-                    <a>Afficher l'image</a>
+                    <!-- <a>Afficher l'image</a> -->
+                    <a href="../img/<%= imagesUtilisateur[i].nomFichier %>" data-lightbox="gallery"><img src="../img/<%= imagesUtilisateur[i].nomFichier %>" alt="Image" class="imagesEspaceSauvegarde" /></a>
                 </td>
                 <td>
                     <a class="boutonDetails">Afficher les détails</a>
                 </td>
 
-                <td></td>
+                <td>
+                    <a class="boutonSupprimer">Supprimer l'image</a>
+                </td>
             </tr>
             <% } %>
         </tbody>
     </table>
     <% } else {%>
-        <p>page</p>
+    <p>Vous n'avez pas enregistrer d'image</p>
     <% } %>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox-plus-jquery.min.js"></script>
 <%- include('./parties/pied.ejs') %>

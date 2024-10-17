@@ -14,6 +14,6 @@ routeurPages.get("/connexion", controleAcces("nonConnecte"), (req, res) => {
 });
 routeurPages.get("/gestion", controleAcces("connecte"), async (req, res) => {
     const imagesUtilisateur = await req.Image.findAll({ where: { idUtilisateur: req.idUtilisateur } });
-    res.render("gestion.ejs", { titre: "Gestion", css: "gestion", script: "gestion", cdnCSS: "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", imagesUtilisateur });
+    res.render("gestion.ejs", { titre: "Gestion", css: "gestion", script: "gestion", imagesUtilisateur });
 });
 export default routeurPages;

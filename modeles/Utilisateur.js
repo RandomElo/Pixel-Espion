@@ -21,6 +21,10 @@ export default function (bdd) {
                 type: DataTypes.STRING(255),
                 allowNull: false,
             },
+            adressesIp: {
+                type: DataTypes.STRING(255),
+                allowNull: false,
+            },
         },
         {
             tableName: "Utilisateurs",
@@ -51,6 +55,7 @@ export default function (bdd) {
             const utilisateur = await req.Utilisateur.create({
                 pseudo: req.body.pseudo,
                 motDePasse: motDePasseHash,
+                adressesIp: req.ip,
             });
             return await req.Utilisateur.generationToken(res, utilisateur.id);
         } catch (erreur) {
@@ -64,18 +69,19 @@ export default function (bdd) {
             return res.json({ connecte: true, erreur: "Pseudo ou mot de passe incorrect" });
         }
         if (bcrypt.compare(req.body.mdp, utilisateur.motDePasse)) {
-            return await req.Utilisateur.generationToken(res, utilisateur.id);
+            await req.Utilisateur.update({ adressesIp: req.id }, { where: { id: utilisateur.id } });
+            return await req.Utilisateur.generationToken(res, utilisateur);
         } else {
             return res.json({ connecte: true, erreur: "Pseudo ou mot de passe incorrect" });
         }
     };
-    Utilisateur.generationToken = async function (res, idUtilisateur) {
-        const tokenJWT = jwt.sign({ id: idUtilisateur }, process.env.CHAINE_JWT, {
+    Utilisateur.generationToken = async function (res, utilisateur) {
+        const tokenJWT = jwt.sign({ id: utilisateur.id, adressesIp: utilisateur.adressesIp }, process.env.CHAINE_JWT, {
             expiresIn: "72h",
         });
         return res
             .cookie("utilisateur", tokenJWT, {
-                maxAge: 100 * 60 * 60 * 60 * 24 * 3,
+                maxAge: 72 * 60 * 60 * 24 * 1000,
                 httpOnly: true,
                 sameSite: "strict",
                 secure: true,
