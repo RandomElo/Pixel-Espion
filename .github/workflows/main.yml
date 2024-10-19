@@ -18,6 +18,6 @@ jobs:
                   password: ${{secrets.PASSWORD_SSH}}
                   port: 22
                   script: |
-                    git clone https://github.com/RandomElo/Pixel-Espion /
-                    cd pixel-espion
+                    git clone https://github.com/RandomElo/Pixel-Espion /code
+                    cd /code
                     npm install
