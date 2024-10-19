@@ -17,6 +17,7 @@ jobs:
                   local-dir: ./
                   server-dir: ./
                   protocol: ftps
+                  timeout: 60000
 
     npm-install:
         name: 📦 Installation des dépendances
