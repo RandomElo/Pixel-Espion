@@ -1,0 +1,23 @@
+on: push
+name: 🚀 Publication via SSH
+jobs:
+    deploy:
+        name: 🎉 Déploiment et installation via SSH
+        runs-on: ubuntu-latest
+        steps:
+            - name: 💻 Configuration de Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: 18
+
+            - name: 📂 Accès SSH au serveur et exécution des commandes
+              uses: appleboy/ssh-action@v1.0.0
+              with:
+                  host: ${{secrets.SERVER_SSH}}
+                  username: ${{secrets.USERNAME_SSH}}
+                  password: ${{secrets.PASSWORD_SSH}}
+                  port: 22
+                  script: |
+                    git clone https://github.com/RandomElo/Pixel-Espion /
+                    cd pixel-espion
+                    npm install
