@@ -14,11 +14,11 @@ jobs:
                   server: ${{secrets.SERVER_FTP}}
                   username: ${{secrets.USERNAME_FTP}}
                   password: ${{secrets.PASSWORD_FTP}}
-                  port: 21  # Assurez-vous que c'est le port correct pour FTPS
-                  protocol: ftps  # Utilisation du protocole FTPS
+                  port: 21 # Assurez-vous que c'est le port correct pour FTPS
+                  protocol: ftps # Utilisation du protocole FTPS
                   local-dir: ./
                   server-dir: ./
-                  timeout: 60000  # Timeout de 60 secondes
+                  timeout: 60000 # Timeout de 60 secondes
 
     npm-install:
         name: 📦 Installation des dépendances
@@ -36,6 +36,4 @@ jobs:
                   username: ${{secrets.USERNAME_SSH}}
                   password: ${{secrets.PASSWORD_SSH}}
                   port: 22
-                  script: |
-                    npm init
-                    npm install
+                  script: npm install
