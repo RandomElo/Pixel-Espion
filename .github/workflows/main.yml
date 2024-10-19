@@ -16,6 +16,8 @@ jobs:
                   password: ${{secrets.PASSWORD_FTP}}
                   local-dir: ./
                   server-dir: ./
+                  secure: true
+                  protocol: ftps
 
     npm-install:
         name: 📦 Installation des dépendances
