@@ -20,17 +20,20 @@ export default function (bdd) {
         },
         { tableName: "Visites" }
     );
-    Visite.enregistrement = async function (req, res) {
+    Visite.enregistrement = async function (req, res, next) {
         try {
             const image = await req.Image.findOne({
                 where: { nomFichier: req.url.split("/")[1] },
             });
-            req.Visite.create({
+            const creation = await req.Visite.create({
                 idImage: image.id,
                 date: new Date(),
             });
+            console.log("il y a pas d'erreur");
+            // next();
         } catch (erreur) {
-            return res.json({ enresitrer: false, erreur });
+            console.error(erreur);
+            return res.json({ enregistrer: false, erreur });
         }
     };
     return Visite;

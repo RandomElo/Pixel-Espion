@@ -37,15 +37,17 @@ app.use(cookieParser());
 app.use(accesibiliteBDD(bdd));
 app.use(verificationCookie);
 
-
 // Gestion des chemins d'accès
 app.use("/", express.static(path.join(process.cwd(), "public")));
 app.use("/public", express.static(path.join(process.cwd(), "public/elements")));
+// app.use("/img", express.static(path.join(process.cwd(), "public/data")));
+console.log(path.join(process.cwd(), "public/data"));
 app.use("/img", suiviAcces(), express.static(path.join(process.cwd(), "public/data")));
 
 // Gestion des routes
 app.use("/", routeurPages);
 app.use("/utilisateur", routeurUtilisateurs);
 app.use("/image", controleAcces("connecte"), routeurImages);
+// app.use("/img", suiviAcces(), routeurImg);
 
 app.listen(port, () => console.log("Serveur démarré => port " + port));
