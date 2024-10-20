@@ -1,0 +1,9 @@
+#divBoutonsDirection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#divBoutonsDirection a {
+    margin-bottom: 10px;
+}

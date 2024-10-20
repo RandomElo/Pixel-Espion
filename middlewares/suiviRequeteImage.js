@@ -21,6 +21,6 @@ export const suiviAcces = () => {
 
         req.Visite.enregistrement(req, res);
 
-        next();
+        // next();
     };
 };
