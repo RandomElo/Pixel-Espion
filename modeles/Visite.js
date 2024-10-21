@@ -14,7 +14,7 @@ export default function (bdd) {
                 allowNull: false,
             },
             date: {
-                type: DataTypes.DATE,
+                type: DataTypes.STRING(255),
                 allowNull: false,
             },
         },
@@ -25,12 +25,72 @@ export default function (bdd) {
             const image = await req.Image.findOne({
                 where: { nomFichier: req.url.split("/")[1] },
             });
-            const creation = await req.Visite.create({
+            // Gestion de l'heure
+            const date = new Date();
+            let mois = "";
+            switch (date.getMonth()) {
+                case 0:
+                    mois = "janvier";
+                    break;
+
+                case 1:
+                    mois = "février";
+                    break;
+
+                case 2:
+                    mois = "mars";
+                    break;
+
+                case 3:
+                    mois = "avril";
+                    break;
+
+                case 4:
+                    mois = "mai";
+                    break;
+
+                case 5:
+                    mois = "juin";
+                    break;
+
+                case 6:
+                    mois = "juillet";
+                    break;
+
+                case 7:
+                    mois = "août";
+                    break;
+
+                case 8:
+                    mois = "septembre";
+                    break;
+
+                case 9:
+                    mois = "octobre";
+                    break;
+
+                case 10:
+                    mois = "novembre";
+                    break;
+
+                case 11:
+                    mois = "décembre";
+                    break;
+
+                default:
+                    break;
+            }
+            let minutes = date.getMinutes();
+            if (minutes.toString().split("").length == 1) {
+                minutes = "0" + minutes;
+            }
+            const dateEntiere = date.getDate() + " " + mois + " " + date.getFullYear() + " à " + date.getHours() + "h" + minutes;
+            // Fin de gestion de l'heure
+
+            await req.Visite.create({
                 idImage: image.id,
-                date: new Date(),
+                date: dateEntiere,
             });
-            console.log("il y a pas d'erreur");
-            // next();
         } catch (erreur) {
             console.error(erreur);
             return res.json({ enregistrer: false, erreur });

@@ -1,5 +1,7 @@
 <%- include('./parties/tete.ejs') %>
 <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
 <h1 id="titre">Page de gestion</h1>
 <div id="divResultat"></div>
 <div id="divImages">
@@ -15,7 +17,7 @@
         </thead>
         <tbody>
             <% for(let i = 0; i < imagesUtilisateur.length; i++) {%>
-            <tr data-id="<%= imagesUtilisateur[i].nomFichier %>">
+            <tr data-id="<%= imagesUtilisateur[i].id %>">
                 <td><%= imagesUtilisateur[i].nomImage %></td>
                 <!-- <td><img src="/data/<%= imagesUtilisateur[i].nomFichier %>" alt="Nom image : <%= imagesUtilisateur[i].nomImage %>" /></td> -->
                 <td>
@@ -23,7 +25,40 @@
                     <a href="../img/<%= imagesUtilisateur[i].nomFichier %>" data-lightbox="gallery"><img src="../img/<%= imagesUtilisateur[i].nomFichier %>" alt="Image" class="imagesEspaceSauvegarde" /></a>
                 </td>
                 <td>
-                    <a class="boutonDetails">Afficher les détails</a>
+                    <a class="boutonDetails" data-toggle="modal" data-target="#modal<%= imagesUtilisateur[i].id %>">Afficher les détails</a>
+                    <!-- Modale -->
+                    <div class="modal fade" id="modal<%= imagesUtilisateur[i].id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Détail de <%= imagesUtilisateur[i].nomImage %></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <% if(imagesUtilisateur[i].visites) { %>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Qui ?</th>
+                                            </tr>
+                                        </thead>
+                                        <% for(let l = 0; l < imagesUtilisateur[i].visites.length; l ++) { %>
+                                        <tr>
+                                            <td><%= imagesUtilisateur[i].visites[l].date %></td>
+                                            <td><a>C'était moi</a></td>
+                                        </tr>
+                                        <% } %>
+                                    </table>
+                                    <% } else { %>
+                                    <p>Il y a pas de visite enregistrer sur l'image</p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
 
                 <td>
@@ -38,4 +73,6 @@
     <% } %>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox-plus-jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <%- include('./parties/pied.ejs') %>

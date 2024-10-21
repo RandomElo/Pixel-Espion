@@ -42,6 +42,7 @@ if (document.querySelector("table")) {
     document.querySelectorAll(".boutonDetails").forEach((bouton) => {
         bouton.addEventListener("click", (e) => {
             console.log(e.target.dataset.id);
+            
         });
     });
 }
