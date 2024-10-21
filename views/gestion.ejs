@@ -6,7 +6,7 @@
 <div id="divResultat"></div>
 <div id="divImages">
     <% if (imagesUtilisateur != "") { %>
-    <table>
+    <table id="tableauImages" class="table table-striped">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -21,14 +21,14 @@
                 <td><%= imagesUtilisateur[i].nomImage %></td>
                 <!-- <td><img src="/data/<%= imagesUtilisateur[i].nomFichier %>" alt="Nom image : <%= imagesUtilisateur[i].nomImage %>" /></td> -->
                 <td>
-                    <!-- <a>Afficher l'image</a> -->
-                    <a href="../img/<%= imagesUtilisateur[i].nomFichier %>" data-lightbox="gallery"><img src="../img/<%= imagesUtilisateur[i].nomFichier %>" alt="Image" class="imagesEspaceSauvegarde" /></a>
+                    <!-- <a href="../img/<%= imagesUtilisateur[i].nomFichier %>" data-lightbox="gallery"><img src="../img/<%= imagesUtilisateur[i].nomFichier %>" alt="Image" class="imagesEspaceSauvegarde" /></a> -->
+                    <a href="../img/<%= imagesUtilisateur[i].nomFichier %>" data-lightbox="gallery"><p class="lien">Afficher l'image</p></a>
                 </td>
                 <td>
                     <a class="boutonDetails" data-toggle="modal" data-target="#modal<%= imagesUtilisateur[i].id %>">Afficher les détails</a>
                     <!-- Modale -->
-                    <div class="modal fade" id="modal<%= imagesUtilisateur[i].id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                    <div class="modal fade" id="modal<%= imagesUtilisateur[i].id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Détail de <%= imagesUtilisateur[i].nomImage %></h5>
@@ -46,9 +46,29 @@
                                             </tr>
                                         </thead>
                                         <% for(let l = 0; l < imagesUtilisateur[i].visites.length; l ++) { %>
-                                        <tr>
+                                        <tr data-id="<%= imagesUtilisateur[i].visites[l].id %>">
                                             <td><%= imagesUtilisateur[i].visites[l].date %></td>
-                                            <td><a>C'était moi</a></td>
+                                            <td>
+                                                <select class="typeUtilisateur">
+                                                    <% if(imagesUtilisateur[i].visites[l].typeVisiteur = "inconnu") { %>
+                                                    <option value="inconnu" selected>Inconnu</option>
+                                                    <option value="moi">Moi</option>
+                                                    <option value="destinataire">Le destinataire</option>
+
+                                                    <% } else if(imagesUtilisateur[i].visites[l].typeVisiteur = "moi") {%>
+                                                    <option value="inconnu" selected>Inconnu</option>
+                                                    <option value="moi" selected>Moi</option>
+                                                    <option value="destinataire">Le destinataire</option>
+                                                    <option value="inconnu" selected>Inconnu</option>
+
+                                                    <% } else if(imagesUtilisateur[i].visites[l].typeVisiteur = "destinataire") {%>
+                                                    <option value="inconnu">Inconnu</option>
+                                                    <option value="moi">Moi</option>
+                                                    <option value="destinataire" selected>Le destinataire</option>
+
+                                                    <% } %>
+                                                </select>
+                                            </td>
                                         </tr>
                                         <% } %>
                                     </table>

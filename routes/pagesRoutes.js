@@ -23,7 +23,7 @@ routeurPages.get("/gestion", controleAcces("connecte"), async (req, res) => {
         // Je récupére toutes les visite qui on comme id celle de la photo
         image.visites = visiteImage.filter((visites) => visites.idImage == image.id);
     });
-    // res.json({imagesUtilisateur})
+    // res.json({ imagesUtilisateur });
     res.render("gestion.ejs", { titre: "Gestion", css: "gestion", script: "gestion", imagesUtilisateur });
 });
 export default routeurPages;

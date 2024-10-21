@@ -42,7 +42,35 @@ if (document.querySelector("table")) {
     document.querySelectorAll(".boutonDetails").forEach((bouton) => {
         bouton.addEventListener("click", (e) => {
             console.log(e.target.dataset.id);
-            
+        });
+    });
+}
+if (document.querySelectorAll(".typeUtilisateur")) {
+    document.querySelectorAll(".typeUtilisateur").forEach((select) => {
+        select.addEventListener("change", async (e) => {
+            const donnees = {
+                idImage: e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.id,
+                idVisite: e.target.parentNode.parentNode.dataset.id,
+                valeur: e.target.value,
+            };
+            console.log(donnees);
+            const requete = await fetch("/image/modification-type-visiteur", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(donnees),
+            });
+            if (requete.ok) {
+                const reponse = await requete.json();
+                if (reponse.modification) {
+                    location.reload(true);
+                } else {
+                    alert(reponse.erreur);
+                }
+            } else {
+                alert("Une erreur est survenue lors de la requete");
+            }
         });
     });
 }

@@ -15,3 +15,21 @@
     font-size: 1rem;
     text-decoration: none;
 }
+/* Gestion du tableau des images */
+#tableauImages {
+    width: 75%;
+    text-align: center;
+}
+/* #tableauImages {
+    border-collapse: collapse;
+    text-align: center;
+    width: 60%;
+    margin: 10px auto 0 auto;
+
+    tr,
+    td,
+    th {
+        border: 1px solid #000000;
+    }
+} */
+/* Fin de gestion du tableau des images */

@@ -17,6 +17,10 @@ export default function (bdd) {
                 type: DataTypes.STRING(255),
                 allowNull: false,
             },
+            typeVisiteur: {
+                type: DataTypes.STRING(255),
+                allowNull: false,
+            },
         },
         { tableName: "Visites" }
     );
@@ -90,10 +94,27 @@ export default function (bdd) {
             await req.Visite.create({
                 idImage: image.id,
                 date: dateEntiere,
+                typeVisiteur: "inconnu",
             });
         } catch (erreur) {
             console.error(erreur);
             return res.json({ enregistrer: false, erreur });
+        }
+    };
+    Visite.changerTypeVisiteur = async (req, res) => {
+        console.log(req.body);
+        const image = await req.Image.findOne({
+            where: { id: req.body.idImage },
+        });
+        if (image) {
+            if (req.idUtilisateur == image.idUtilisateur) {
+                await req.Visite.update({ typeVisiteur: req.body.valeur }, { where: { id: req.body.idVisite } });
+                return res.json({modification: true})
+            } else {
+                return res.json({ modification: false, erreur: "L'image ne vous appartient pas" });
+            }
+        } else {
+            return res.json({ modification: false, erreur: "Image inexistante" });
         }
     };
     return Visite;
