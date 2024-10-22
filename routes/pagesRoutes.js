@@ -4,13 +4,16 @@ import { controleAcces } from "../middlewares/controleAcces.js";
 const routeurPages = express.Router();
 
 routeurPages.get("/", (req, res) => {
-    res.render("accueil.ejs", { titre: "Accueil", css: "accueil", script: "" });
+    res.render("accueil.ejs", { titre: "Accueil", css: "accueil", script: "", cdn: "", cookieUtiliateur: req.idUtilisateur });
+});
+routeurPages.get("/accueil", (req, res) => {
+    res.redirect("/");
 });
 routeurPages.get("/inscription", controleAcces("nonConnecte"), (req, res) => {
-    res.render("pageIdentification.ejs", { titre: "Inscription", css: "pageIdentification", script: "inscription", mode: "Inscription" });
+    res.render("pageIdentification.ejs", { titre: "Inscription", css: "pageIdentification", script: "inscription", mode: "Inscription", cdn: "", cookieUtiliateur: req.idUtilisateur });
 });
 routeurPages.get("/connexion", controleAcces("nonConnecte"), (req, res) => {
-    res.render("pageIdentification.ejs", { titre: "Connexion", css: "pageIdentification", script: "connexion", mode: "Connexion" });
+    res.render("pageIdentification.ejs", { titre: "Connexion", css: "pageIdentification", script: "connexion", mode: "Connexion", cdn: "", cookieUtiliateur: req.idUtilisateur });
 });
 routeurPages.get("/gestion", controleAcces("connecte"), async (req, res) => {
     const imagesUtilisateur = await req.Image.findAll({ where: { idUtilisateur: req.idUtilisateur }, raw: true });
@@ -24,6 +27,9 @@ routeurPages.get("/gestion", controleAcces("connecte"), async (req, res) => {
         image.visites = visiteImage.filter((visites) => visites.idImage == image.id);
     });
     // res.json({ imagesUtilisateur });
-    res.render("gestion.ejs", { titre: "Gestion", css: "gestion", script: "gestion", imagesUtilisateur });
+    res.render("gestion.ejs", { titre: "Gestion", css: "gestion", script: "gestion", imagesUtilisateur, cdn: ["https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css"], cookieUtiliateur: req.idUtilisateur });
+});
+routeurPages.get("/limites-projet", (req, res) => {
+    res.render("limitesProjet.ejs", { titre: "Limites du projet", css: "limitesProjet", script: "", cdn: "", cookieUtiliateur: req.idUtilisateur });
 });
 export default routeurPages;

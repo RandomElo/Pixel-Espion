@@ -96,16 +96,7 @@ export default function (bdd) {
             if (req.idUtilisateur == image.idUtilisateur) {
                 typeVisiteur = "moi";
             } else {
-                // Verification par adresse IP
-                const utilisateur = await req.Utilisateur.findOne({ where: { id: image.idUtilisateur } });
-                // utilisateur.adresseIp
-                console.log(req.ip)
-                console.log("Adresse IP : " + req.ip.slice(7));
-                // if (utilisateur.adresseIp == req.ip.slice(7)) {
-                //     typeVisiteur = "moi";
-                // } else {
-                //     typeVisiteur = "inconnu";
-                // }
+                typeVisiteur = "inconnu";
             }
             await req.Visite.create({
                 idImage: image.id,

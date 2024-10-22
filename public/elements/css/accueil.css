@@ -1,9 +1,17 @@
-#divBoutonsDirection {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+#divPresentation p {
+    width: 60%;
+    margin: 10px auto 0 auto;
+    text-align: center;
 }
-#divBoutonsDirection a {
-    margin-bottom: 10px;
+#divPresentation a {
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+}
+#divPresentation h2 {
+    text-align: center;
+}
+#divLien {
+    margin-top: 25px;
+    text-align: center;
 }

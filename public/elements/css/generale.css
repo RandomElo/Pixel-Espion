@@ -1,6 +1,13 @@
 * {
     margin: 0;
     padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+p,
+a,
+button {
+    font-size: 1.1rem;
 }
 #titre {
     text-align: center;
@@ -15,21 +22,169 @@
     font-size: 1rem;
     text-decoration: none;
 }
-/* Gestion du tableau des images */
-#tableauImages {
-    width: 75%;
-    text-align: center;
+.lien:hover {
+    color: white;
+    text-decoration: none;
 }
-/* #tableauImages {
-    border-collapse: collapse;
-    text-align: center;
-    width: 60%;
-    margin: 10px auto 0 auto;
+/* Gestion de la navbar */
+.navbar {
+    display: inline;
+    padding: 25px 25px 5px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+.navbar a {
+    color: black;
+}
+.navbar .logo {
+    font-size: 2em;
+    font-weight: bold;
+}
+.navbar .nav-links ul {
+    display: flex;
+}
+.navbar .nav-links ul li {
+    margin: 0 25px;
+}
 
-    tr,
-    td,
-    th {
-        border: 1px solid #000000;
+.navbar .nav-links ul li.active a {
+    color: black;
+    font-weight: 600;
+}
+.navbar .menu-hamburger {
+    display: none;
+}
+
+.animation::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+/*Définition Hamburger*/
+.menu-hamburger {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+}
+.container-lignes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+}
+.ligne {
+    position: absolute;
+    border-radius: 10px;
+    width: 50px;
+    height: 5px;
+    background: #000;
+}
+.menu-hamburger .ligne:nth-child(1) {
+    top: 0px;
+}
+.menu-hamburger .ligne:nth-child(2) {
+    top: 20px;
+}
+.menu-hamburger .ligne:nth-child(3) {
+    top: 40px;
+}
+
+/* Anim 1 */
+.menu-hamburger .ligne:nth-child(1),
+.ligne:nth-child(3) {
+    transform: rotate(0deg);
+    transition: transform 0.4s ease-in-out, top 0.4s 0.4s ease-in-out;
+}
+.menu-hamburger .ligne:nth-child(2) {
+    transition: opacity 0.4s 0.4s ease-in-out;
+}
+
+.menu-hamburger.active .ligne:nth-child(1) {
+    top: 25px;
+    transform: rotate(45deg);
+    transition: top 0.4s ease-in-out, transform 0.4s 0.4s ease-in-out;
+}
+.menu-hamburger.active .ligne:nth-child(2) {
+    transition: opacity 0.4s ease-in-out;
+    opacity: 0;
+}
+.menu-hamburger.active .ligne:nth-child(3) {
+    top: 25px;
+    transform: rotate(-45deg);
+    transition: top 0.4s ease-in-out, transform 0.4s 0.4s ease-in-out;
+}
+
+@media screen and (max-width: 900px) {
+    .navbar {
+        padding: 0;
+        margin-bottom: 100px;
     }
-} */
-/* Fin de gestion du tableau des images */
+    .navbar .logo {
+        position: absolute;
+        top: 40px;
+        left: 30px;
+    }
+    .navbar .menu-hamburger {
+        display: block;
+    }
+    .nav-links {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgb(255, 255, 255);
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: -100%;
+        transition: all 0.5s ease;
+    }
+    .nav-links.mobile-menu {
+        margin-left: 0px;
+    }
+    .nav-links ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .navbar .nav-links ul li {
+        margin: 25px 0;
+        font-size: 1.2em;
+        text-align: center;
+    }
+}
+/* Fin de la gestion de la navbar */
+/* Gestion du footer */
+footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 5px 0;
+    width: 100%;
+    background-color: #e2e2e2;
+    display: flex;
+    justify-content: center;
+    border-top: 1px dashed black;
+}
+footer p {
+    margin: 0;
+    padding: 0;
+}

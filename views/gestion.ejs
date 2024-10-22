@@ -1,12 +1,9 @@
 <%- include('./parties/tete.ejs') %>
-<link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet" />
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-
 <h1 id="titre">Page de gestion</h1>
 <div id="divResultat"></div>
 <div id="divImages">
     <% if (imagesUtilisateur != "") { %>
-    <table id="tableauImages" class="table table-striped">
+    <table id="tableauImages" class="table table-striped mt-3">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -25,7 +22,7 @@
                     <a href="../img/<%= imagesUtilisateur[i].nomFichier %>" data-lightbox="gallery"><p class="lien">Afficher l'image</p></a>
                 </td>
                 <td>
-                    <a class="boutonDetails" data-toggle="modal" data-target="#modal<%= imagesUtilisateur[i].id %>">Afficher les détails</a>
+                    <a class="boutonDetails lien" data-toggle="modal" data-target="#modal<%= imagesUtilisateur[i].id %>">Afficher les détails</a>
                     <!-- Modale -->
                     <div class="modal fade" id="modal<%= imagesUtilisateur[i].id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal">
                         <div class="modal-dialog modal-lg">
@@ -51,19 +48,19 @@
                                             <td>
                                                 <select class="typeUtilisateur">
                                                     <% if(imagesUtilisateur[i].visites[l].typeVisiteur == "inconnu") { %>
-                                                        <option value="inconnu" selected>Inconnu</option>
-                                                        <option value="moi">Moi</option>
-                                                        <option value="destinataire">Le destinataire</option>
+                                                    <option value="inconnu" selected>Inconnu</option>
+                                                    <option value="moi">Moi</option>
+                                                    <option value="destinataire">Le destinataire</option>
 
                                                     <% } else if(imagesUtilisateur[i].visites[l].typeVisiteur == "moi") {%>
-                                                        <option value="inconnu" >Inconnu</option>
-                                                        <option value="moi" selected>Moi</option>
-                                                        <option value="destinataire">Le destinataire</option>
+                                                    <option value="inconnu">Inconnu</option>
+                                                    <option value="moi" selected>Moi</option>
+                                                    <option value="destinataire">Le destinataire</option>
 
                                                     <% } else if(imagesUtilisateur[i].visites[l].typeVisiteur == "destinataire") {%>
-                                                        <option value="inconnu">Inconnu</option>
-                                                        <option value="moi">Moi</option>
-                                                        <option value="destinataire" selected>Le destinataire</option>
+                                                    <option value="inconnu">Inconnu</option>
+                                                    <option value="moi">Moi</option>
+                                                    <option value="destinataire" selected>Le destinataire</option>
 
                                                     <% } %>
                                                 </select>
@@ -81,7 +78,7 @@
                 </td>
 
                 <td>
-                    <a class="boutonSupprimer">Supprimer l'image</a>
+                    <a class="boutonSupprimer lien">Supprimer l'image</a>
                 </td>
             </tr>
             <% } %>

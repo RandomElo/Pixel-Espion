@@ -3,12 +3,43 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <% if (cdn !="") { %> <% for(let i = 0; i < cdn.length; i++) { %>
+        <link href="<%= cdn[i] %>" rel="stylesheet" />
+        <% } %> <% } %>
         <link rel="stylesheet" href="/public/css/generale.css" />
         <% if (css != "") { %>
-            <link rel="stylesheet" href="/public/css/<%= css  %>.css" />
+        <link rel="stylesheet" href="/public/css/<%= css  %>.css" />
         <% } %>
 
         <title><%= titre %> - Pixel Espion</title>
     </head>
-    <body></body>
-</html>
+    <body>
+        <header>
+            <!-- Navbar -->
+            <nav class="navbar">
+                <p class="logo">Pixel Espion</p>
+                <div class="nav-links">
+                    <ul>
+                        <% if(!cookieUtiliateur) { %>
+                            <li class="active animation"><a href="/">Accueil</a></li>
+                            <li class="animation"><a href="/inscription">Inscription</a></li>
+                            <li class="animation"><a href="/connexion">Connexion</a></li>
+                            <li class="animation"><a href="/limites-projet">Limites de ce projet</a></li>
+                        <% } else { %>
+                            <li class="active animation"><a href="/">Accueil</a></li>
+                            <li class="animation"><a href="/gestion">Gestion</a></li>
+                            <li class="animation"><a href="/limites-projet">Limites de ce projet</a></li>
+                        <% } %>
+
+                    </ul>
+                </div>
+                <button class="menu-hamburger">
+                    <div class="container-lignes">
+                        <div class="ligne"></div>
+                        <div class="ligne"></div>
+                        <div class="ligne"></div>
+                    </div>
+                </button>
+            </nav>
+        </header>

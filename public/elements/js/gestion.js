@@ -1,3 +1,8 @@
+lightbox.option({
+    resizeDuration: 0,
+    fadeDuration: 0,
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#divResultat").innerHTML = /*html*/ `
     <div id="divBoutonAjouterElement">
