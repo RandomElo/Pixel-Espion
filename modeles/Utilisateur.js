@@ -78,13 +78,9 @@ export default function (bdd) {
     };
     Utilisateur.generationToken = async function (res, utilisateur) {
         try {
-            console.log("je recoit en génération de token");
-            console.log("id utilisateur : "+utilisateur.id)
-            console.log("adresse IP : "+utilisateur.adresseIp)
             const tokenJWT = jwt.sign({ id: utilisateur.id, adresseIp: utilisateur.adresseIp }, process.env.CHAINE_JWT, {
                 expiresIn: "72h",
             });
-            console.log("je vient de générer le cookie");
             return res
                 .cookie("utilisateur", tokenJWT, {
                     maxAge: 72 * 60 * 60 * 24 * 1000,

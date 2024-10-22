@@ -90,11 +90,20 @@ export default function (bdd) {
             }
             const dateEntiere = date.getDate() + " " + mois + " " + date.getFullYear() + " à " + date.getHours() + "h" + minutes;
             // Fin de gestion de l'heure
+
+            // Vérification par cookie
             let typeVisiteur;
             if (req.idUtilisateur == image.idUtilisateur) {
                 typeVisiteur = "moi";
             } else {
-                typeVisiteur = "inconnu";
+                // Verification par adresse IP
+                const utilisateur = await req.Utilisateur.findOne({ where: { id: image.idUtilisateur } });
+                // utilisateur.adresseIp
+                if (utilisateur.adresseIp == req.ip.slice(7)) {
+                    typeVisiteur = "moi";
+                } else {
+                    typeVisiteur = "inconnu";
+                }
             }
             await req.Visite.create({
                 idImage: image.id,
