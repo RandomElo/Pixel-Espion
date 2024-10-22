@@ -21,7 +21,7 @@ export default function (bdd) {
                 type: DataTypes.STRING(255),
                 allowNull: false,
             },
-            adressesIp: {
+            adresseIp: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
             },
@@ -55,9 +55,10 @@ export default function (bdd) {
             const utilisateur = await req.Utilisateur.create({
                 pseudo: req.body.pseudo,
                 motDePasse: motDePasseHash,
-                adressesIp: req.ip,
+                adresseIp: req.ip.slice(7),
             });
-            return await req.Utilisateur.generationToken(res, utilisateur.id);
+            console.log("j'envoie vers la génération de token");
+            return await req.Utilisateur.generationToken(res, utilisateur);
         } catch (erreur) {
             console.error(erreur);
             return res.json({ connecte: false, erreur });
@@ -76,17 +77,25 @@ export default function (bdd) {
         }
     };
     Utilisateur.generationToken = async function (res, utilisateur) {
-        const tokenJWT = jwt.sign({ id: utilisateur.id, adressesIp: utilisateur.adressesIp }, process.env.CHAINE_JWT, {
-            expiresIn: "72h",
-        });
-        return res
-            .cookie("utilisateur", tokenJWT, {
-                maxAge: 72 * 60 * 60 * 24 * 1000,
-                httpOnly: true,
-                sameSite: "strict",
-                secure: true,
-            })
-            .json({ connecte: true });
+        try {
+            console.log("je recoit en génération de token");
+            console.log("id utilisateur : "+utilisateur.id)
+            console.log("adresse IP : "+utilisateur.adresseIp)
+            const tokenJWT = jwt.sign({ id: utilisateur.id, adresseIp: utilisateur.adresseIp }, process.env.CHAINE_JWT, {
+                expiresIn: "72h",
+            });
+            console.log("je vient de générer le cookie");
+            return res
+                .cookie("utilisateur", tokenJWT, {
+                    maxAge: 72 * 60 * 60 * 24 * 1000,
+                    httpOnly: true,
+                    sameSite: "strict",
+                    secure: true,
+                })
+                .json({ connecte: true });
+        } catch (error) {
+            console.error(error);
+        }
     };
     return Utilisateur;
 }

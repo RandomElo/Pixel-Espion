@@ -50,21 +50,20 @@
                                             <td><%= imagesUtilisateur[i].visites[l].date %></td>
                                             <td>
                                                 <select class="typeUtilisateur">
-                                                    <% if(imagesUtilisateur[i].visites[l].typeVisiteur = "inconnu") { %>
-                                                    <option value="inconnu" selected>Inconnu</option>
-                                                    <option value="moi">Moi</option>
-                                                    <option value="destinataire">Le destinataire</option>
+                                                    <% if(imagesUtilisateur[i].visites[l].typeVisiteur == "inconnu") { %>
+                                                        <option value="inconnu" selected>Inconnu</option>
+                                                        <option value="moi">Moi</option>
+                                                        <option value="destinataire">Le destinataire</option>
 
-                                                    <% } else if(imagesUtilisateur[i].visites[l].typeVisiteur = "moi") {%>
-                                                    <option value="inconnu" selected>Inconnu</option>
-                                                    <option value="moi" selected>Moi</option>
-                                                    <option value="destinataire">Le destinataire</option>
-                                                    <option value="inconnu" selected>Inconnu</option>
+                                                    <% } else if(imagesUtilisateur[i].visites[l].typeVisiteur == "moi") {%>
+                                                        <option value="inconnu" >Inconnu</option>
+                                                        <option value="moi" selected>Moi</option>
+                                                        <option value="destinataire">Le destinataire</option>
 
-                                                    <% } else if(imagesUtilisateur[i].visites[l].typeVisiteur = "destinataire") {%>
-                                                    <option value="inconnu">Inconnu</option>
-                                                    <option value="moi">Moi</option>
-                                                    <option value="destinataire" selected>Le destinataire</option>
+                                                    <% } else if(imagesUtilisateur[i].visites[l].typeVisiteur == "destinataire") {%>
+                                                        <option value="inconnu">Inconnu</option>
+                                                        <option value="moi">Moi</option>
+                                                        <option value="destinataire" selected>Le destinataire</option>
 
                                                     <% } %>
                                                 </select>

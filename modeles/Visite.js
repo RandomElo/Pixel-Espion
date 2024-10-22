@@ -90,11 +90,16 @@ export default function (bdd) {
             }
             const dateEntiere = date.getDate() + " " + mois + " " + date.getFullYear() + " à " + date.getHours() + "h" + minutes;
             // Fin de gestion de l'heure
-
+            let typeVisiteur;
+            if (req.idUtilisateur == image.idUtilisateur) {
+                typeVisiteur = "moi";
+            } else {
+                typeVisiteur = "inconnu";
+            }
             await req.Visite.create({
                 idImage: image.id,
                 date: dateEntiere,
-                typeVisiteur: "inconnu",
+                typeVisiteur: typeVisiteur,
             });
         } catch (erreur) {
             console.error(erreur);
@@ -102,14 +107,13 @@ export default function (bdd) {
         }
     };
     Visite.changerTypeVisiteur = async (req, res) => {
-        console.log(req.body);
         const image = await req.Image.findOne({
             where: { id: req.body.idImage },
         });
         if (image) {
             if (req.idUtilisateur == image.idUtilisateur) {
                 await req.Visite.update({ typeVisiteur: req.body.valeur }, { where: { id: req.body.idVisite } });
-                return res.json({modification: true})
+                return res.json({ modification: true });
             } else {
                 return res.json({ modification: false, erreur: "L'image ne vous appartient pas" });
             }

@@ -53,7 +53,6 @@ if (document.querySelectorAll(".typeUtilisateur")) {
                 idVisite: e.target.parentNode.parentNode.dataset.id,
                 valeur: e.target.value,
             };
-            console.log(donnees);
             const requete = await fetch("/image/modification-type-visiteur", {
                 method: "POST",
                 headers: {
