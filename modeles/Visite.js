@@ -99,11 +99,13 @@ export default function (bdd) {
                 // Verification par adresse IP
                 const utilisateur = await req.Utilisateur.findOne({ where: { id: image.idUtilisateur } });
                 // utilisateur.adresseIp
-                if (utilisateur.adresseIp == req.ip.slice(7)) {
-                    typeVisiteur = "moi";
-                } else {
-                    typeVisiteur = "inconnu";
-                }
+                console.log(req.ip)
+                console.log("Adresse IP : " + req.ip.slice(7));
+                // if (utilisateur.adresseIp == req.ip.slice(7)) {
+                //     typeVisiteur = "moi";
+                // } else {
+                //     typeVisiteur = "inconnu";
+                // }
             }
             await req.Visite.create({
                 idImage: image.id,
